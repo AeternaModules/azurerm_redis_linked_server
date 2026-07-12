@@ -1,3 +1,7 @@
+output "redis_linked_servers_id" {
+  description = "Map of id values across all redis_linked_servers, keyed the same as var.redis_linked_servers"
+  value       = { for k, v in azurerm_redis_linked_server.redis_linked_servers : k => v.id }
+}
 output "redis_linked_servers_geo_replicated_primary_host_name" {
   description = "Map of geo_replicated_primary_host_name values across all redis_linked_servers, keyed the same as var.redis_linked_servers"
   value       = { for k, v in azurerm_redis_linked_server.redis_linked_servers : k => v.geo_replicated_primary_host_name }
