@@ -16,18 +16,13 @@ EOT
     server_role                 = string
     target_redis_cache_name     = string
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.redis_linked_servers : (
-        length(v.target_redis_cache_name) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_redis_linked_server's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
   # Review, translate into a real validation{} block above, and delete once confirmed.
+  # path: target_redis_cache_name
+  #   condition: length(value) > 0
+  #   message:   must not be empty
   # path: linked_redis_cache_id
   #   source:    [from linkedserver.ValidateRediID] !ok
   # path: linked_redis_cache_id
